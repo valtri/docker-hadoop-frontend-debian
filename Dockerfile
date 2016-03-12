@@ -26,6 +26,15 @@ RUN rm /root/cloudera.pp /root/java.pp
 COPY ./hadoop.pp /root
 RUN puppet apply /root/hadoop.pp --test; test $? -eq 2
 
+# XXX: belongs to cesnet-spark puppet module
+COPY ./hadoop-spark2.sh /etc/profile.d/
+COPY ./hadoop-spark2.csh /etc/profile.d/
+
+# niceties
+RUN apt-get update && apt-get install -y bzip2 less mc screen ssh pbzip2 pigz vim
+RUN ln -s /usr/share/mc/bin/mc.sh /etc/profile.d/
+RUN ln -s /usr/share/mc/bin/mc.csh /etc/profile.d/
+
 # ==== cleanup ====
 
 RUN apt-get clean \
