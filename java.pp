@@ -1,0 +1,11 @@
+#
+# Java for Hadoop frontend (Oracle, version 8, sdk)
+#
+
+# java installed separately to invoke custom parameters
+# (hiera would be the better way)
+class { '::java_ng':
+  flavor      => 'jdk',
+  set_default => true,
+  version     => 8,
+}
