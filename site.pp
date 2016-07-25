@@ -28,19 +28,20 @@ class { '::java_ng':
 }
 
 class { '::hadoop':
-  hdfs_hostname         => $master1,
-  hdfs_hostname2        => $master2,
-  yarn_hostname         => $master2,
-  yarn_hostname2        => $master1,
-  slaves                => [],
-  journalnode_hostnames => $zookeepers,
-  zookeeper_hostnames   => $zookeepers,
-  cluster_name          => $cluster_name,
+  hdfs_hostname          => $master1,
+  hdfs_hostname2         => $master2,
+  yarn_hostname          => $master2,
+  yarn_hostname2         => $master1,
+  historyserver_hostname => $master2,
+  slaves                 => [],
+  journalnode_hostnames  => $zookeepers,
+  zookeeper_hostnames    => $zookeepers,
+  cluster_name           => $cluster_name,
   # needed for 'yarn logs' also on the client
-  features => {
+  features               => {
     'aggregation' => true,
   },
-  properties            => {
+  properties             => {
     'dfs.replication' => 4,
     # make sense only on the server side (just cosmetics)
     'dfs.namenode.name.dir' => '::undef',
@@ -52,7 +53,7 @@ class { '::hadoop':
     'hadoop.http.authentication.signature.secret.file' => '::undef',
     'yarn.nodemanager.local-dirs' => '::undef',
   },
-  realm                 => $realm,
+  realm                  => $realm,
 }
 
 class { '::hbase':
@@ -73,11 +74,14 @@ class { '::hive':
   realm               => $realm,
 }
 
+# not deployed yet
+#class { '::impala':
+#}
+
 class { '::spark':
   hdfs_hostname          => $cluster_name,
   historyserver_hostname => $master2,
-  # TODO: change it to 18088 in the cluster one day
-  historyserver_port     => 18080,
+  historyserver_port     => 18088,
   jar_enable             => true,
   realm                  => $realm,
 }
@@ -88,6 +92,8 @@ class { '::site_hadoop':
   java_enable         => false,
   # requires additional capabilities
   nfs_frontend_enable => false,
+  # not deployed yet
+  impala_enable       => false,
 }
 
 group { $user_group:
@@ -95,3 +101,5 @@ group { $user_group:
 }
 
 include ::site_hadoop::role::frontend
+
+Group[$user_group] -> Class['::site_hadoop::role::frontend']

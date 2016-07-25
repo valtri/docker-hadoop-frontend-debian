@@ -1,5 +1,5 @@
 #
-# Java for Hadoop frontend (Oracle, version 8, sdk)
+# Java for Hadoop frontend (Oracle - only available, version 8, sdk)
 #
 
 # java installed separately to invoke custom parameters
