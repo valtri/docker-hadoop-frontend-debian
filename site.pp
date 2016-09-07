@@ -24,6 +24,7 @@ class { '::java_ng':
   flavor      => 'jdk',
   set_default => true,
   version     => 8,
+  repo        => 'ppa:oracle',
   stage       => 'setup',
 }
 
