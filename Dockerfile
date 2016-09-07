@@ -1,4 +1,4 @@
-FROM valtri/docker-puppet-debian:8
+FROM valtri/docker-puppet-debian:7
 MAINTAINER František Dvořák <valtri@civ.zcu.cz>
 
 # ==== system ====
