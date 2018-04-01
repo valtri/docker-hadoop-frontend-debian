@@ -75,10 +75,6 @@ class { '::hive':
   realm               => $realm,
 }
 
-# not deployed yet
-#class { '::impala':
-#}
-
 class { '::spark':
   hdfs_hostname          => $cluster_name,
   historyserver_hostname => $master2,
@@ -93,7 +89,7 @@ class { '::site_hadoop':
   java_enable         => false,
   # requires additional capabilities
   nfs_frontend_enable => false,
-  # not deployed yet
+  # not planned
   impala_enable       => false,
 }
 
