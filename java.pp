@@ -7,5 +7,6 @@
 class { '::java_ng':
   flavor      => 'jdk',
   set_default => true,
+  repo        => 'ppa:oracle',
   version     => 8,
 }
